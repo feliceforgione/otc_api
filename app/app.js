@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const { connect } = require("../db/db");
 
 const userRouter = require("../router/userRouter");
 
@@ -33,5 +34,7 @@ app.use((error, req, res, next) => {
     .status(error.status || 500)
     .json({ error: { message: error.message, error: error.status } });
 });
+
+connect();
 
 module.exports = app;
