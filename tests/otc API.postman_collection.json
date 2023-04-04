@@ -1,0 +1,289 @@
+{
+	"info": {
+		"_postman_id": "5620c99b-952c-4d05-9dc4-f90706071cdd",
+		"name": "otc API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20496691"
+	},
+	"item": [
+		{
+			"name": "Register POST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Test Status\", () => {\r",
+							"    pm.response.to.have.status(201)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Test Message\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"    const reqBody = JSON.parse(request.data);\r",
+							"    pm.environment.set(\"email\", reqBody.email);\r",
+							"    pm.environment.set(\"password\", reqBody.password);\r",
+							"    pm.expect(response).to.have.property(\"message\", \"Successful Registration\")\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Test Payload\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"    const user = response.user;\r",
+							"    pm.expect(user).to.have.property(\"firstName\", \"Jane\")\r",
+							"    pm.expect(user).to.have.property(\"lastName\", \"Doe\")\r",
+							"    pm.expect(user).to.have.property(\"address\", \"123 Main St\")\r",
+							"    pm.expect(user).to.have.property(\"city\", \"New York\")\r",
+							"    pm.expect(user).to.have.property(\"state\", \"NY\")\r",
+							"    pm.expect(user).to.have.property(\"zipcode\", \"10956\")    \r",
+							"    pm.expect(user).to.have.property(\"email\",pm.environment.get(\"email\") )\r",
+							"    pm.expect(user).to.have.property(\"password\", null)\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Jane\",\r\n    \"lastName\": \"Doe\",\r\n    \"address\": \"123 Main St\",\r\n    \"city\": \"New York\",\r\n    \"state\":\"NY\",\r\n    \"zipcode\": \"10956\",\r\n    \"email\": \"jane{{$guid}}@gmail.com\",\r\n    \"password\":\"123\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/users/register",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register POST - BAD",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Test Status\", () => {\r",
+							"    pm.response.to.have.status(501)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Test Message\", () => {\r",
+							"    const error = pm.response.json().error;\r",
+							"    const reqBody = JSON.parse(request.data);\r",
+							"    pm.expect(error).to.have.property(\"message\", \"User exists, try loggin in\")\r",
+							"})\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Jane\",\r\n    \"lastName\": \"Doe\",\r\n    \"address\": \"123 Main St\",\r\n    \"city\": \"New York\",\r\n    \"state\":\"NY\",\r\n    \"zipcode\": \"10956\",\r\n    \"email\": \"{{email}}\",\r\n    \"password\":\"123\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/users/register",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login POST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Test Status\", () => {\r",
+							"    pm.response.to.have.status(201)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Test Message\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response).to.have.property(\"message\", \"Login Successful\")\r",
+							"    pm.expect(response).to.have.property(\"logged\", true)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Test Payload\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"    const user = response.user;\r",
+							"    pm.expect(user).to.have.property(\"firstName\", \"Jane\")\r",
+							"    pm.expect(user).to.have.property(\"lastName\", \"Doe\")\r",
+							"    pm.expect(user).to.have.property(\"address\", \"123 Main St\")\r",
+							"    pm.expect(user).to.have.property(\"city\", \"New York\")\r",
+							"    pm.expect(user).to.have.property(\"state\", \"NY\")\r",
+							"    pm.expect(user).to.have.property(\"zipcode\", \"10956\")    \r",
+							"    pm.expect(user).to.have.property(\"email\",pm.environment.get(\"email\") )\r",
+							"    pm.expect(user).to.have.property(\"password\", null)\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/users/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login POST - BAD",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Test Status\", () => {\r",
+							"    pm.response.to.have.status(501)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Test Message\", () => {    \r",
+							"    const error = pm.response.json().error\r",
+							"    pm.expect(error).to.have.property(\"message\", \"Authentication Failed: Unable to find user\")\r",
+							"})\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"me@me.com\",\r\n    \"password\": \"none\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/users/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Products POST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Test Status\", () => {\r",
+							"    pm.response.to.have.status(201)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Test Message\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response).to.have.property(\"message\", \"Product added\")\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Test Payload\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"    const result = response.result;\r",
+							"    pm.environment.set(\"id\", result._id)\r",
+							"    pm.expect(result).to.have.property(\"title\", \"title\")\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"brand\": \"brand\",\r\n  \"manufacturer\": \"manufacture\",\r\n  \"title\": \"title\",\r\n  \"upc\": \"upc1234\",\r\n  \"description\": \"description\",\r\n  \"description_html\": \"description_full\",\r\n  \"description_full_html\": \"desctiption html\",\r\n  \"ratings_total\": 100,\r\n  \"ratings\": 10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/products/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"products",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
