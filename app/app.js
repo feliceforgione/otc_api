@@ -4,9 +4,11 @@ const app = express();
 const { connect } = require("../db/db");
 
 const userRouter = require("../router/userRouter");
+const productRouter = require("../router/productRouter");
+const categoryRouter = require("../router/categoryRouter");
 
 // Middleware
-// contract for incloming json payloads only
+// contract for incoming json payloads only
 app.use(express.json());
 // url encoding
 app.use(express.urlencoded({ extended: true }));
@@ -20,6 +22,8 @@ app.get("/", (req, res, next) => {
 
 // Routers
 app.use("/users", userRouter);
+app.use("/products", productRouter);
+app.use("/category", categoryRouter);
 
 // Bad url or error
 app.use((req, res, next) => {

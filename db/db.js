@@ -28,4 +28,9 @@ const findUser = async (obj) => {
   return await User.findOne(obj).exec();
 };
 
-module.exports = { connect, disconnect, saveUser, findUser };
+module.exports = {
+  connect,
+  disconnect,
+  saveUser,
+  findUser,
+};
