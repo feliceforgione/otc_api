@@ -24,10 +24,17 @@ const updateCategory = async (id, updateFields) => {
   }).exec();
 };
 
+const productListingByCategory = async (id, selectFields) => {
+  return await Category.findById(id)
+    .populate("productIds", "_id brand title")
+    .exec();
+};
+
 module.exports = {
   saveCategory,
   findCategories,
   findCategoryDetail,
   deleteCategory,
   updateCategory,
+  productListingByCategory,
 };

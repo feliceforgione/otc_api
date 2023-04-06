@@ -5,6 +5,7 @@ const {
   getAllCategory,
   getCategoryDetailByID,
   putCategory,
+  getProductsByCategory,
 } = require("../services/categoryService");
 
 const router = express.Router();
@@ -12,6 +13,8 @@ const router = express.Router();
 router.get("/", getAllCategory);
 
 router.get("/:categoryId", getCategoryDetailByID);
+
+router.get("/:categoryId/products", getProductsByCategory);
 
 router.post("/", addCategory);
 

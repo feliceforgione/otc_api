@@ -5,6 +5,7 @@ const {
   findCategoryDetail,
   deleteCategory,
   updateCategory,
+  productListingByCategory,
 } = require("../db/categoryDb");
 const Category = require("../models/categoryModel");
 const errorTemplate = require("../templates/errorTemplate");
@@ -61,6 +62,18 @@ const getCategoryDetailByID = async (req, res) => {
   }
 };
 
+const getProductsByCategory = async (req, res) => {
+  try {
+    const categoryId = req.params.categoryId;
+
+    const category = await productListingByCategory(categoryId);
+    if (!category) throw new Error(messages.category_not_found);
+    successTemplate(res, category, messages.category_found, 200);
+  } catch (err) {
+    errorTemplate(res, err, err.message, 500);
+  }
+};
+
 const putCategory = async (req, res) => {
   try {
     const categoryId = req.params.categoryId;
@@ -79,4 +92,5 @@ module.exports = {
   getAllCategory,
   getCategoryDetailByID,
   putCategory,
+  getProductsByCategory,
 };
