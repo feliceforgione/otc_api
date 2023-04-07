@@ -11,6 +11,7 @@ const messages = {
   category_exists: "Category already exists",
   category_updated: "Category Updated",
   category_deleted: "Category Deleted",
+  auth_failed: "Authorization Failed",
 };
 
 module.exports = messages;

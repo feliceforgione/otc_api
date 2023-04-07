@@ -6,17 +6,17 @@ const {
   putProduct,
   delProduct,
 } = require("../services/productService");
-
+const auth = require("../auth/authorization");
 const router = express.Router();
 
 router.get("/", getAllProducts);
 
 router.get("/:productId", getProductDetailByID);
 
-router.post("/", addProduct);
+router.post("/", [auth, addProduct]);
 
-router.put("/:productId", putProduct);
+router.put("/:productId", [auth, putProduct]);
 
-router.delete("/:productId", delProduct);
+router.delete("/:productId", [auth, delProduct]);
 
 module.exports = router;

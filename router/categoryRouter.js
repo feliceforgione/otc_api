@@ -8,6 +8,8 @@ const {
   getProductsByCategory,
 } = require("../services/categoryService");
 
+const auth = require("../auth/authorization");
+
 const router = express.Router();
 
 router.get("/", getAllCategory);
@@ -16,10 +18,10 @@ router.get("/:categoryId", getCategoryDetailByID);
 
 router.get("/:categoryId/products", getProductsByCategory);
 
-router.post("/", addCategory);
+router.post("/", [auth, addCategory]);
 
-router.put("/:categoryId", putCategory);
+router.put("/:categoryId", [auth, putCategory]);
 
-router.delete("/:categoryId", delCategory);
+router.delete("/:categoryId", [auth, delCategory]);
 
 module.exports = router;
