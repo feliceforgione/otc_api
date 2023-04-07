@@ -1,6 +1,7 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
 const Category = require("../models/categoryModel");
+const Product = require("../models/productModel");
 
 const saveCategory = async (newCategory) => {
   return await newCategory.save();
