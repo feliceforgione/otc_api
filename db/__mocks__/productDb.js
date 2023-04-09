@@ -10,6 +10,16 @@ const saveProduct = async (newProduct) => {
     description_full_html: "description_full_html",
     ratings_total: 100,
     ratings: 10.75,
+    images: [
+      {
+        link: "https://plus.unsplash.com/premium_photo-1668446396629-43f49cc4f98c",
+        id: "123456",
+        zoomable: false,
+        main_image: true,
+      },
+    ],
+    dimensions: "3.75 x 1.56 x 3.12 Inches",
+    price: 19.82,
   });
 };
 
@@ -27,6 +37,16 @@ const findProducts = async (obj, selectFields) => {
       description_full_html: "description_full_html",
       ratings_total: 100,
       ratings: 10.75,
+      images: [
+        {
+          link: "https://plus.unsplash.com/premium_photo-1668446396629-43f49cc4f98c",
+          id: "123456",
+          zoomable: false,
+          main_image: true,
+        },
+      ],
+      dimensions: "3.75 x 1.56 x 3.12 Inches",
+      price: 19.82,
     },
   ]);
 };
@@ -43,6 +63,16 @@ const findProductDetail = async (id, selectFields) => {
     description_full_html: "description_full_html",
     ratings_total: 100,
     ratings: 10.75,
+    images: [
+      {
+        link: "https://plus.unsplash.com/premium_photo-1668446396629-43f49cc4f98c",
+        id: "123456",
+        zoomable: false,
+        main_image: true,
+      },
+    ],
+    dimensions: "3.75 x 1.56 x 3.12 Inches",
+    price: 19.82,
   });
 };
 
@@ -58,6 +88,16 @@ const updateProduct = async (id, updateFields) => {
     description_full_html: "description_full_html1",
     ratings_total: 101,
     ratings: 11.75,
+    images: [
+      {
+        link: "https://plus.unsplash.com/premium_photo-1668446396629-43f49cc4f98c1",
+        id: "1234561",
+        zoomable: true,
+        main_image: false,
+      },
+    ],
+    dimensions: "3.75 x 1.56 x 3.12 Inches1",
+    price: 19.821,
   });
 };
 

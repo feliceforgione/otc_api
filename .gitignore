@@ -1,7 +1,0 @@
-node_modules
-package-lock.json
-.env
-data.json
-coverage
-workflow.md
-requirements.txt

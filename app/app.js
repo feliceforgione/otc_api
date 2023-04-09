@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const { connect } = require("../db/db");
+const swaggerUi = require("swagger-ui-express");
+const openApiDocument = require("../config/swaggerOptions.json");
 
 const userRouter = require("../router/userRouter");
 const productRouter = require("../router/productRouter");
@@ -24,6 +26,9 @@ app.get("/", (req, res, next) => {
 app.use("/users", userRouter);
 app.use("/products", productRouter);
 app.use("/category", categoryRouter);
+
+// Api-docs swagger middleware
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(openApiDocument));
 
 // Bad url or error
 app.use((req, res, next) => {

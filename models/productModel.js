@@ -30,6 +30,23 @@ const productSchema = mongoose.Schema({
   ratings: {
     type: Number,
   },
+  images: [
+    {
+      link: String,
+      id: String,
+      zoomable: Boolean,
+      main_image: Boolean,
+    },
+  ],
+  dimensions: {
+    type: String,
+  },
+  price: {
+    type: Number,
+  },
+  in_stock: {
+    type: Boolean,
+  },
 });
 
 module.exports = mongoose.model("Product", productSchema);

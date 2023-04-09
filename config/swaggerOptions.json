@@ -1,0 +1,1100 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "OTC API",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Felice Forgione",
+      "url": "feliceforgione.com"
+    },
+    "description": "Provides over the counter medication information [https://swagger.io](https://swagger.io).",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "servers": [
+    {
+      "description": "Local Server",
+      "url": "http://localhost:3000"
+    }
+  ],
+  "tags": [
+    {
+      "name": "products",
+      "description": "Product operations"
+    },
+    {
+      "name": "category",
+      "description": "Category operations"
+    },
+    {
+      "name": "users",
+      "description": "Registration operations"
+    }
+  ],
+
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/users/register": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Register  user",
+        "description": "Register a new user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Successful Registration"
+                    },
+                    "user": {
+                      "allOf": [
+                        { "$ref": "#/components/schemas/User" },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "format": "hexadecimal",
+                              "example": "6431144859a92e6e125ee4c3"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "User exists, try loggin in"
+                        },
+                        "error": {
+                          "type": "object",
+                          "example": "{}"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Login a user",
+        "description": "Logs user into system",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "default": "email@email.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "default": "qwerty"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Login Successful"
+                    },
+                    "user": {
+                      "allOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "format": "hexadecimal",
+                              "example": "6431144859a92e6e125ee4c3"
+                            }
+                          }
+                        },
+                        { "$ref": "#/components/schemas/User" },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "password": {
+                              "type": "string",
+                              "nullable": true,
+                              "example": "null"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "logged": {
+                      "type": "boolean",
+                      "example": "true"
+                    },
+                    "token": {
+                      "type": "string",
+                      "format": "jwt",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "User exists, try loggin in"
+                        },
+                        "error": {
+                          "type": "object",
+                          "example": "{}"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products": {
+      "post": {
+        "tags": ["products"],
+        "summary": "Add a product",
+        "description": "Add a new product",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Product Added"
+                    },
+                    "result": {
+                      "allOf": [
+                        { "$ref": "#/components/schemas/Product" },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "format": "hexadecimal",
+                              "example": "6431144859a92e6e125ee4c3"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Product already exists"
+                        },
+                        "error": {
+                          "type": "object",
+                          "example": "{}"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["products"],
+        "summary": "List of products",
+        "description": "Returns list of products",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Products"
+                    },
+                    "result": {
+                      "type": "array",
+                      "items": {
+                        "allOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "_id": {
+                                "type": "string",
+                                "format": "hexadecimal",
+                                "example": "6431144859a92e6e125ee4c3"
+                              }
+                            }
+                          },
+                          { "$ref": "#/components/schemas/Product" }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/{productId}": {
+      "get": {
+        "tags": ["products"],
+        "summary": "Find product by ID",
+        "description": "Returns product details",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "ID of product to return",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "hexadecimal"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Product Found"
+                    },
+                    "result": {
+                      "allOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "format": "hexadecimal",
+                              "example": "6431144859a92e6e125ee4c3"
+                            }
+                          }
+                        },
+                        { "$ref": "#/components/schemas/Product" }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Product not found"
+                        },
+                        "error": {
+                          "type": "object",
+                          "example": "{}"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["products"],
+        "summary": "Update a product",
+        "description": "Update a product by ID",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "ID of product to return",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "hexadecimal"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "Tylenol Extra Strength Acetaminophen Rapid Release Gels, 150 ct"
+                  },
+                  "price": {
+                    "type": "number",
+                    "example": 20.0
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Product Updated"
+                    },
+                    "result": {
+                      "allOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "format": "hexadecimal",
+                              "example": "6431144859a92e6e125ee4c3"
+                            }
+                          }
+                        },
+                        { "$ref": "#/components/schemas/Product" },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "title": {
+                              "type": "string",
+                              "example": "Tylenol Extra Strength Acetaminophen Rapid Release Gels, 150 ct"
+                            },
+                            "price": {
+                              "type": "number",
+                              "example": "20.00"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Product not found"
+                        },
+                        "error": {
+                          "type": "object",
+                          "example": "{}"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["products"],
+        "summary": "Deletes a product",
+        "description": "Deletes a product based on ID",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "ID of product to delete",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "hexadecimal"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Product Deleted"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "format": "hexadecimal",
+                          "example": "6431144859a92e6e125ee4c3"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Product not found"
+                        },
+                        "error": {
+                          "type": "object",
+                          "example": "{}"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/category": {
+      "post": {
+        "tags": ["category"],
+        "summary": "Add a category",
+        "description": "Add a new category",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Category"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Category Added"
+                    },
+                    "result": {
+                      "allOf": [
+                        { "$ref": "#/components/schemas/Category" },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "format": "hexadecimal",
+                              "example": "6431144859a92e6e125ee4c3"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Category already exists"
+                        },
+                        "error": {
+                          "type": "object",
+                          "example": "{}"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["category"],
+        "summary": "List of categories",
+        "description": "Returns list of categories",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Categories"
+                    },
+                    "result": {
+                      "type": "array",
+                      "items": {
+                        "allOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "_id": {
+                                "type": "string",
+                                "format": "hexadecimal",
+                                "example": "6431144859a92e6e125ee4c3"
+                              }
+                            }
+                          },
+                          { "$ref": "#/components/schemas/Category" }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/category/{categoryId}": {
+      "get": {
+        "tags": ["category"],
+        "summary": "Find category by ID",
+        "description": "Returns category details",
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "path",
+            "description": "ID of category to return",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "hexadecimal"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Category Found"
+                    },
+                    "result": {
+                      "allOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "format": "hexadecimal",
+                              "example": "6431144859a92e6e125ee4c3"
+                            }
+                          }
+                        },
+                        { "$ref": "#/components/schemas/Category" }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Category not found"
+                        },
+                        "error": {
+                          "type": "object",
+                          "example": "{}"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["category"],
+        "summary": "Update a category",
+        "description": "Update a category by ID",
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "path",
+            "description": "ID of category to return",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "hexadecimal"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Cold & Flu"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Category Updated"
+                    },
+                    "result": {
+                      "allOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "format": "hexadecimal",
+                              "example": "6431144859a92e6e125ee4c3"
+                            }
+                          }
+                        },
+                        { "$ref": "#/components/schemas/Category" },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string",
+                              "example": "Cold & Flu"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Category not found"
+                        },
+                        "error": {
+                          "type": "object",
+                          "example": "{}"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["category"],
+        "summary": "Deletes a category",
+        "description": "Deletes a category based on ID",
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "path",
+            "description": "ID of category to delete",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "hexadecimal"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Category Deleted"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "format": "hexadecimal",
+                          "example": "6431144859a92e6e125ee4c3"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Category not found"
+                        },
+                        "error": {
+                          "type": "object",
+                          "example": "{}"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "bearerFormat": "JWT",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "default": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "default": "Doe"
+          },
+          "address": {
+            "type": "string",
+            "default": "123 Main St."
+          },
+          "city": {
+            "type": "string",
+            "default": "New York"
+          },
+          "state": {
+            "type": "string",
+            "default": "NY"
+          },
+          "zipcode": {
+            "type": "string",
+            "default": "12345"
+          },
+          "email": {
+            "type": "string",
+            "default": "email@email.com"
+          },
+          "password": {
+            "type": "string",
+            "default": "qwerty"
+          }
+        }
+      },
+      "Product": {
+        "type": "object",
+        "properties": {
+          "brand": {
+            "type": "string",
+            "example": "Tylenol"
+          },
+          "manufacturer": {
+            "type": "string",
+            "example": "Johnson & Johnson"
+          },
+          "title": {
+            "type": "string",
+            "example": "Tylenol Extra Strength Acetaminophen Rapid Release Gels, 100 ct"
+          },
+          "upc": {
+            "type": "string",
+            "example": "300450488282"
+          },
+          "description": {
+            "type": "string",
+            "example": "Tylenol Extra Strength Rapid Release Gels work at the speed of life to temporarily relieve minor aches and pains, such as headaches, and reduce fever."
+          },
+          "description_html": {
+            "type": "string",
+            "example": "<p>Tylenol Extra Strength Rapid Release Gels work at the speed of life to temporarily relieve minor aches and pains, such as headaches, and reduce fever. </p>"
+          },
+          "description_full_html": {
+            "type": "string",
+            "example": "Tylenol Extra Strength Rapid Release Gels work at the speed of life to temporarily relieve minor aches and pains, such as headaches, and reduce fever. Each gelcap features unique laser-drilled holes and releases pain medicine fast. Each gelcap contains 500 mg of acetaminophen for effective, extra strength pain relief."
+          },
+          "ratings_total": {
+            "type": "number",
+            "example": 4569
+          },
+          "ratings": {
+            "type": "number",
+            "example": 4.7
+          },
+          "dimensions": {
+            "type": "string",
+            "example": "3.75 x 1.56 x 3.12 Inches"
+          },
+          "price": {
+            "type": "number",
+            "example": 19.82
+          },
+          "in_stock": {
+            "type": "boolean",
+            "example": true
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Image"
+            }
+          }
+        }
+      },
+      "Image": {
+        "type": "object",
+        "properties": {
+          "link": {
+            "type": "string",
+            "example": "https://plus.unsplash.com/premium_photo-1668446396629-43f49cc4f98c"
+          },
+          "id": {
+            "type": "string",
+            "example": "123456"
+          },
+          "zoomable": {
+            "type": "boolean",
+            "example": false
+          },
+          "main_image": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "Category": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Colds/Flu"
+          },
+          "productIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "hexadecimal",
+              "example": "6431fbcc61d17a48b8794750"
+            }
+          },
+          "icon": {
+            "type": "string",
+            "example": "https://images.unsplash.com/photo-1610021684483-b06bf8ed5a41"
+          }
+        }
+      }
+    }
+  }
+}
