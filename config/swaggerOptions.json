@@ -946,6 +946,107 @@
           }
         }
       }
+    },
+    "/category/{categoryId}/products": {
+      "get": {
+        "tags": ["category"],
+        "summary": "List products in category",
+        "description": "Returns list of products under a category using category ID",
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "path",
+            "description": "ID of category to return",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "hexadecimal"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Category Found"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "format": "hexadecimal",
+                          "example": "6431144859a92e6e125ee4c3"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "Colds/Flu"
+                        },
+                        "productIds": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "_id": {
+                                "type": "string",
+                                "format": "hexadecimal",
+                                "example": "6431fbcc61d17a48b8794750"
+                              },
+                              "brand": {
+                                "type": "string",
+                                "example": "Tylenol"
+                              },
+                              "title": {
+                                "type": "string",
+                                "example": "Tylenol Extra Strength Acetaminophen Rapid Release Gels, 100 ct"
+                              }
+                            }
+                          }
+                        },
+                        "icon": {
+                          "type": "string",
+                          "example": "https://images.unsplash.com/photo-1610021684483-b06bf8ed5a41"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Category not found"
+                        },
+                        "error": {
+                          "type": "object",
+                          "example": "{}"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
