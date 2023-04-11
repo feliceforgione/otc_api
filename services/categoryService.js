@@ -65,8 +65,9 @@ const getCategoryDetailByID = async (req, res) => {
 const getProductsByCategory = async (req, res) => {
   try {
     const categoryId = req.params.categoryId;
+    const sortFields = req.query.sort;
 
-    const category = await productListingByCategory(categoryId);
+    const category = await productListingByCategory(categoryId, sortFields);
     if (!category) throw new Error(messages.category_not_found);
     successTemplate(res, category, messages.category_found, 200);
   } catch (err) {

@@ -25,9 +25,13 @@ const updateCategory = async (id, updateFields) => {
   }).exec();
 };
 
-const productListingByCategory = async (id, selectFields) => {
+const productListingByCategory = async (id, sortFields) => {
   return await Category.findById(id)
-    .populate("productIds", "_id brand title")
+    .populate({
+      path: "productIds",
+      select: "_id brand title ratings images price ",
+      options: { sort: sortFields },
+    })
     .exec();
 };
 
