@@ -8,6 +8,7 @@ const openApiDocument = require("../config/swaggerOptions.json");
 const userRouter = require("../router/userRouter");
 const productRouter = require("../router/productRouter");
 const categoryRouter = require("../router/categoryRouter");
+const homeRouter = require("../router/homeRouter");
 
 // Middleware
 // contract for incoming json payloads only
@@ -17,12 +18,13 @@ app.use(express.urlencoded({ extended: true }));
 // cors policy
 app.use(cors());
 
-// health point
-app.get("/", (req, res, next) => {
-  res.status(200).json({ message: "Service is up" });
-});
+// template engine
+app.set("views", "views"); // specify the views directory
+app.set("view engine", "ejs"); // register the template engine
+app.use(express.static("public"));
 
 // Routers
+app.use("/", homeRouter);
 app.use("/users", userRouter);
 app.use("/products", productRouter);
 app.use("/category", categoryRouter);
