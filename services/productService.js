@@ -29,9 +29,17 @@ const addProduct = async (req, res) => {
   }
 };
 
-const getAllProducts = async (req, res) => {
+const getProducts = async (req, res) => {
   try {
-    const products = await findProducts({}, "-__v");
+    let filter = {};
+    const searchWords = req.query.search;
+    if (searchWords) {
+      const queryRegex = new RegExp(searchWords, "i");
+      filter = {
+        $or: [{ title: queryRegex }, { description: queryRegex }],
+      };
+    }
+    const products = await findProducts(filter, "-__v");
     successTemplate(res, products, "Products", 200);
   } catch (err) {
     errorTemplate(res, err, err.message, 500);
@@ -76,7 +84,7 @@ const delProduct = async (req, res) => {
 };
 
 module.exports = {
-  getAllProducts,
+  getProducts,
   addProduct,
   getProductDetailByID,
   putProduct,

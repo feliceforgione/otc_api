@@ -1,7 +1,7 @@
 const express = require("express");
 const {
   addProduct,
-  getAllProducts,
+  getProducts,
   getProductDetailByID,
   putProduct,
   delProduct,
@@ -9,7 +9,7 @@ const {
 const auth = require("../auth/authorization");
 const router = express.Router();
 
-router.get("/", getAllProducts);
+router.get("/", getProducts);
 
 router.get("/:productId", getProductDetailByID);
 
