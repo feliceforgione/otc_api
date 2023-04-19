@@ -294,6 +294,16 @@
         "tags": ["products"],
         "summary": "List of products",
         "description": "Returns list of products",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "description": "keywords to find in products",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success",
