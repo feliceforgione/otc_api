@@ -429,6 +429,69 @@
 			"response": []
 		},
 		{
+			"name": "Products GET with Search Query",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Test Status\", () => {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Test Message\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response).to.have.property(\"message\", \"Products\")\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Test Payload\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"    const result = response.result;\r",
+							"    pm.expect(result[0]).to.have.property(\"title\")\r",
+							"    pm.expect(result[0]).to.have.property(\"upc\")\r",
+							"    pm.expect(result[0]).to.have.property(\"brand\")\r",
+							"    pm.expect(result[0]).to.have.property(\"manufacturer\")\r",
+							"    pm.expect(result[0]).to.have.property(\"description\")\r",
+							"    pm.expect(result[0]).to.have.property(\"description_html\")\r",
+							"    pm.expect(result[0]).to.have.property(\"description_full_html\")\r",
+							"    pm.expect(result[0]).to.have.property(\"ratings_total\")\r",
+							"    pm.expect(result[0]).to.have.property(\"ratings\")\r",
+							"    pm.expect(result[0]).to.have.property(\"price\", 19.82)\r",
+							"    pm.expect(result[0]).to.have.property(\"dimensions\", \"3.75 x 1.56 x 3.12 Inches\")\r",
+							"    pm.expect(result[0].images[0]).to.have.property(\"link\", \"https://plus.unsplash.com/premium_photo-1668446396629-43f49cc4f98c\")\r",
+							"    pm.expect(result[0].images[0]).to.have.property(\"id\", \"123456\")\r",
+							"    pm.expect(result[0].images[0]).to.have.property(\"zoomable\", false)\r",
+							"    pm.expect(result[0].images[0]).to.have.property(\"main_image\", true)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/products/?search=description",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"products",
+						""
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "description"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Product By Id GET",
 			"event": [
 				{
@@ -915,7 +978,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/category/{{categoryId}}/products",
+					"raw": "localhost:3000/category/{{categoryId}}/products?sort=title",
 					"host": [
 						"localhost"
 					],
@@ -924,6 +987,12 @@
 						"category",
 						"{{categoryId}}",
 						"products"
+					],
+					"query": [
+						{
+							"key": "sort",
+							"value": "title"
+						}
 					]
 				}
 			},

@@ -7,7 +7,7 @@ const saveProduct = async (newProduct) => {
 };
 
 const findProducts = async (obj, selectFields) => {
-  return await Product.find(obj).select(selectFields).exec();
+  return await Product.find(obj).select(selectFields).sort("-_id").exec();
 };
 
 const findProductDetail = async (id, selectFields) => {
