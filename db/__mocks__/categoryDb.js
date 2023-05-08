@@ -4,6 +4,7 @@ const saveCategory = async (newCategory) => {
     name: "Cold",
     productIds: [],
     icon: "linktopic.com",
+    slug: "cold-slug",
   });
 };
 
@@ -14,6 +15,7 @@ const findCategories = async (obj, selectFields) => {
       name: "Cold",
       productIds: [],
       icon: "linktopic.com",
+      slug: "cold-slug",
     },
   ]);
 };
@@ -24,6 +26,7 @@ const findCategoryDetail = async (id, selectFields) => {
     name: "Cold",
     productIds: [],
     icon: "linktopic.com",
+    slug: "cold-slug",
   });
 };
 
@@ -40,6 +43,7 @@ const updateCategory = async (id, updateFields) => {
     name: "Cold1",
     productIds: ["642e80770b50e7afd2693384"],
     icon: "linktopic.com1",
+    slug: "cold",
   });
 };
 
@@ -55,6 +59,7 @@ const productListingByCategory = async (id, selectFields) => {
       },
     ],
     icon: "linktopic.com",
+    slug: "cold-slug",
   });
 };
 

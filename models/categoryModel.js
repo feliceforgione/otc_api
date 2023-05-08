@@ -10,6 +10,10 @@ const categorySchema = mongoose.Schema({
     type: String,
     required: false,
   },
+  slug: {
+    type: String,
+    required: false,
+  },
 });
 
 module.exports = mongoose.model("Category", categorySchema);

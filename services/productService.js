@@ -33,13 +33,16 @@ const getProducts = async (req, res) => {
   try {
     let filter = {};
     const searchWords = req.query.search;
+    const pageSize = req.query.pageSize;
+    const page = req.query.page;
+    const sort = req.query.sort;
     if (searchWords) {
       const queryRegex = new RegExp(searchWords, "i");
       filter = {
-        $or: [{ title: queryRegex }, { description: queryRegex }],
+        $or: [{ title: queryRegex }, { description_full_html: queryRegex }],
       };
     }
-    const products = await findProducts(filter, "-__v");
+    const products = await findProducts(filter, "-__v", sort, pageSize, page);
     successTemplate(res, products, "Products", 200);
   } catch (err) {
     errorTemplate(res, err, err.message, 500);

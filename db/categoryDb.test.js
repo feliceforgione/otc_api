@@ -27,12 +27,14 @@ describe("Category DB tests", () => {
       name: "Cold",
       productIds: [product[0]._id],
       icon: "linktopic.com",
+      slug: "cold-slug",
     });
     const category = await saveCategory(newCategory);
     categoryID = category._id;
     expect(category.name).toEqual("Cold");
     expect(category.icon).toEqual("linktopic.com");
     expect(category).toHaveProperty("productIds");
+    expect(category.slug).toEqual("cold-slug");
   });
 
   test("As a user I want to find all categories", async () => {
@@ -40,6 +42,7 @@ describe("Category DB tests", () => {
     expect(categories[0].name).toEqual("Cold");
     expect(categories[0].icon).toEqual("linktopic.com");
     expect(categories[0]).toHaveProperty("productIds");
+    expect(categories[0].slug).toEqual("cold-slug");
   });
 
   test("As a user I want to get category details", async () => {
@@ -47,12 +50,14 @@ describe("Category DB tests", () => {
     expect(category.name).toEqual("Cold");
     expect(category.icon).toEqual("linktopic.com");
     expect(category).toHaveProperty("productIds");
+    expect(category.slug).toEqual("cold-slug");
   });
 
   test("As a user I want to get products by category", async () => {
     const category = await productListingByCategory(categoryID);
     expect(category.name).toEqual("Cold");
     expect(category.icon).toEqual("linktopic.com");
+    expect(category.slug).toEqual("cold-slug");
     expect(category).toHaveProperty("productIds");
     expect(category.productIds[0]).toHaveProperty("_id");
     expect(category.productIds[0]).toHaveProperty("brand");
@@ -64,11 +69,13 @@ describe("Category DB tests", () => {
       name: "Cold1",
       productIds: ["642e80770b50e7afd2693384"],
       icon: "linktopic.com1",
+      slug: "cold",
     };
     const category = await updateCategory(categoryID, updatedFields);
     expect(category.name).toEqual("Cold1");
     expect(category.icon).toEqual("linktopic.com1");
     expect(category).toHaveProperty("productIds");
+    expect(category.slug).toEqual("cold");
   });
 
   test("As a user I want to delete a category", async () => {

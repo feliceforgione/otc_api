@@ -302,6 +302,32 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "field to sort by",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "number of results per page",
+            "schema": {
+              "type": "string",
+              "default": 10
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page number of the results",
+            "schema": {
+              "type": "string",
+              "default": 0
+            }
           }
         ],
         "responses": {
@@ -972,6 +998,14 @@
               "type": "string",
               "format": "hexadecimal"
             }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "sort products by field name",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -1203,6 +1237,10 @@
           "icon": {
             "type": "string",
             "example": "https://images.unsplash.com/photo-1610021684483-b06bf8ed5a41"
+          },
+          "slug": {
+            "type": "string",
+            "example": "cold-slug"
           }
         }
       }
