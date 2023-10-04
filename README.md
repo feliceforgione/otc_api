@@ -6,7 +6,7 @@
   <h1 align="center">OTC API</h1>
 
   <p align="center"> 
-    <a href="https://github.com/feliceforgione/otc_api/issues">Report Bug</a>
+    <a href="https://github.com/feliceforgione/otc_api/issues">Report Bug</a>    
     ·
     <a href="https://github.com/feliceforgione/otc_api/issues">Request Feature</a>
   </p>
@@ -19,7 +19,10 @@
 
 API to provide information about over the counter medications.
 
-<br>
+|                                                             |                                                                               |
+| ----------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| <img src="./public/otc_api_homeScreenshot.png" alt="Home" > | <img src="./public/otc_api_documentationScreenshot.png" alt="Documentation" > |
+|                                                             |                                                                               |
 
 ### Built With
 
@@ -34,14 +37,25 @@ API to provide information about over the counter medications.
 
 <!-- Usage -->
 
+## Setup
+
+- Install packages `npm install`
+- Setup `.env` file based off `.env=sample`
+- Start docker container `docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build`
+
+<!-- Usage -->
+
 ## Usage
 
 To start API server: `npm start`
 
 To run tests: `npm run test`
 
-Server can be accessed at: `http://localhost:3000/`  
+Server can be accessed at: `http://localhost:3000/`
+
 API documentation can be found at: `http://localhost:3000/api-docs/`
+
+API can be accessed at: `localhost:3000/api/v1`
 <br>
 <br>
 
