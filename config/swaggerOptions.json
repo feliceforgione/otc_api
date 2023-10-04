@@ -5,9 +5,9 @@
     "version": "1.0.0",
     "contact": {
       "name": "Felice Forgione",
-      "url": "feliceforgione.com"
+      "url": "http://www.feliceforgione.com"
     },
-    "description": "Provides over the counter medication information [https://swagger.io](https://swagger.io).",
+    "description": "Provides over the counter medication information.",
     "license": {
       "name": "Apache 2.0",
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
@@ -16,10 +16,14 @@
   "servers": [
     {
       "description": "Local Server",
-      "url": "http://localhost:3000"
+      "url": "http://localhost:3000/api/v1"
     }
   ],
   "tags": [
+    {
+      "name": "health",
+      "description": "API health"
+    },
     {
       "name": "products",
       "description": "Product operations"
@@ -40,6 +44,26 @@
     }
   ],
   "paths": {
+    "/health": {
+      "get": {
+        "tags": ["health"],
+        "summary": "API Health",
+        "description": "Returns status of api. Confirm that API is up and running",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "example": "OK. API up and running."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/users/register": {
       "post": {
         "tags": ["users"],

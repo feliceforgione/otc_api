@@ -7,6 +7,41 @@
 	},
 	"item": [
 		{
+			"name": "Health GET",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Test Status\", () => {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Test Message\", () => {\r",
+							"    const response = pm.response.text();\r",
+							"    pm.expect(response).equal(\"OK. API up and running.\")\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/health",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Register POST",
 			"event": [
 				{
@@ -57,11 +92,10 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3000/users/register",
+					"raw": "{{baseURL}}/users/register",
 					"host": [
-						"localhost"
+						"{{baseURL}}"
 					],
-					"port": "3000",
 					"path": [
 						"users",
 						"register"
@@ -108,11 +142,10 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3000/users/register",
+					"raw": "{{baseURL}}/users/register",
 					"host": [
-						"localhost"
+						"{{baseURL}}"
 					],
-					"port": "3000",
 					"path": [
 						"users",
 						"register"
@@ -171,11 +204,10 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3000/users/login",
+					"raw": "{{baseURL}}/users/login",
 					"host": [
-						"localhost"
+						"{{baseURL}}"
 					],
-					"port": "3000",
 					"path": [
 						"users",
 						"login"
@@ -220,11 +252,10 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3000/users/login",
+					"raw": "{{baseURL}}/users/login",
 					"host": [
-						"localhost"
+						"{{baseURL}}"
 					],
-					"port": "3000",
 					"path": [
 						"users",
 						"login"
@@ -300,11 +331,10 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3000/products/",
+					"raw": "{{baseURL}}/products/",
 					"host": [
-						"localhost"
+						"{{baseURL}}"
 					],
-					"port": "3000",
 					"path": [
 						"products",
 						""
@@ -358,11 +388,10 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3000/products/",
+					"raw": "{{baseURL}}/products/",
 					"host": [
-						"localhost"
+						"{{baseURL}}"
 					],
-					"port": "3000",
 					"path": [
 						"products",
 						""
@@ -415,11 +444,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/products/",
+					"raw": "{{baseURL}}/products/",
 					"host": [
-						"localhost"
+						"{{baseURL}}"
 					],
-					"port": "3000",
 					"path": [
 						"products",
 						""
@@ -472,11 +500,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/products/?search=description",
+					"raw": "{{baseURL}}/products/?search=html&pageSize=2&page=0&sort=-_id",
 					"host": [
-						"localhost"
+						"{{baseURL}}"
 					],
-					"port": "3000",
 					"path": [
 						"products",
 						""
@@ -484,7 +511,19 @@
 					"query": [
 						{
 							"key": "search",
-							"value": "description"
+							"value": "html"
+						},
+						{
+							"key": "pageSize",
+							"value": "2"
+						},
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "sort",
+							"value": "-_id"
 						}
 					]
 				}
@@ -537,11 +576,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/products/{{productId}}",
+					"raw": "{{baseURL}}/products/{{productId}}",
 					"host": [
-						"localhost"
+						"{{baseURL}}"
 					],
-					"port": "3000",
 					"path": [
 						"products",
 						"{{productId}}"
@@ -576,11 +614,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/products/642d21e21e4a4ddb1610222a",
+					"raw": "{{baseURL}}/products/642d21e21e4a4ddb1610222a",
 					"host": [
-						"localhost"
+						"{{baseURL}}"
 					],
-					"port": "3000",
 					"path": [
 						"products",
 						"642d21e21e4a4ddb1610222a"
@@ -652,11 +689,10 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3000/products/{{productId}}",
+					"raw": "{{baseURL}}/products/{{productId}}",
 					"host": [
-						"localhost"
+						"{{baseURL}}"
 					],
-					"port": "3000",
 					"path": [
 						"products",
 						"{{productId}}"
@@ -710,11 +746,10 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3000/products/642d21e21e4a4ddb1610222a",
+					"raw": "{{baseURL}}/products/642d21e21e4a4ddb1610222a",
 					"host": [
-						"localhost"
+						"{{baseURL}}"
 					],
-					"port": "3000",
 					"path": [
 						"products",
 						"642d21e21e4a4ddb1610222a"
@@ -747,6 +782,7 @@
 							"    pm.environment.set(\"categoryId\", result._id);\r",
 							"    pm.expect(result).to.have.property(\"name\", pm.environment.get(\"categoryName\"))\r",
 							"    pm.expect(result).to.have.property(\"icon\", \"linktopic.com\")\r",
+							"    pm.expect(result).to.have.property(\"slug\", \"cold-slug\")\r",
 							"  \r",
 							"})"
 						],
@@ -769,7 +805,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"name\": \"Cold-{{$guid}}\",\r\n  \"productIds\": [\"{{productId}}\"],\r\n  \"icon\": \"linktopic.com\"\r\n}",
+					"raw": "{\r\n  \"name\": \"Cold-{{$guid}}\",\r\n  \"productIds\": [\"{{productId}}\"],\r\n  \"icon\": \"linktopic.com\",\r\n   \"slug\": \"cold-slug\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -777,11 +813,10 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3000/category/",
+					"raw": "{{baseURL}}/category/",
 					"host": [
-						"localhost"
+						"{{baseURL}}"
 					],
-					"port": "3000",
 					"path": [
 						"category",
 						""
@@ -835,11 +870,10 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3000/category/",
+					"raw": "{{baseURL}}/category/",
 					"host": [
-						"localhost"
+						"{{baseURL}}"
 					],
-					"port": "3000",
 					"path": [
 						"category",
 						""
@@ -869,6 +903,8 @@
 							"    const result = response.result;\r",
 							"    pm.expect(result[0]).to.have.property(\"name\")\r",
 							"    pm.expect(result[0]).to.have.property(\"productIds\")\r",
+							"    pm.expect(result[0]).to.have.property(\"icon\")\r",
+							"    pm.expect(result[0]).to.have.property(\"slug\")\r",
 							"})"
 						],
 						"type": "text/javascript"
@@ -882,11 +918,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/category/",
+					"raw": "{{baseURL}}/category/",
 					"host": [
-						"localhost"
+						"{{baseURL}}"
 					],
-					"port": "3000",
 					"path": [
 						"category",
 						""
@@ -916,6 +951,7 @@
 							"    const result = response.result;\r",
 							"    pm.expect(result).to.have.property(\"name\", pm.environment.get(\"categoryName\"))\r",
 							"    pm.expect(result).to.have.property(\"icon\", \"linktopic.com\")\r",
+							"    pm.expect(result).to.have.property(\"slug\", \"cold-slug\")\r",
 							"})"
 						],
 						"type": "text/javascript"
@@ -929,11 +965,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/category/{{categoryId}}",
+					"raw": "{{baseURL}}/category/{{categoryId}}",
 					"host": [
-						"localhost"
+						"{{baseURL}}"
 					],
-					"port": "3000",
 					"path": [
 						"category",
 						"{{categoryId}}"
@@ -962,7 +997,8 @@
 							"    const response = pm.response.json();\r",
 							"    const result = response.result;\r",
 							"    pm.expect(result).to.have.property(\"name\", pm.environment.get(\"categoryName\"))\r",
-							"    pm.expect(result).to.have.property(\"icon\", \"linktopic.com\")\r",
+							"    pm.expect(result).to.have.property(\"icon\", \"linktopic.com\")    \r",
+							"    pm.expect(result).to.have.property(\"slug\", \"cold-slug\")    \r",
 							"    pm.expect(result.productIds[0]).to.have.property(\"brand\")\r",
 							"    pm.expect(result.productIds[0]).to.have.property(\"title\")\r",
 							"})"
@@ -978,11 +1014,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/category/{{categoryId}}/products?sort=title",
+					"raw": "{{baseURL}}/category/{{categoryId}}/products?sort=_id",
 					"host": [
-						"localhost"
+						"{{baseURL}}"
 					],
-					"port": "3000",
 					"path": [
 						"category",
 						"{{categoryId}}",
@@ -991,7 +1026,7 @@
 					"query": [
 						{
 							"key": "sort",
-							"value": "title"
+							"value": "_id"
 						}
 					]
 				}
@@ -1027,11 +1062,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/category/642d21e21e4a4ddb1610222a",
+					"raw": "{{baseURL}}/category/642d21e21e4a4ddb1610222a",
 					"host": [
-						"localhost"
+						"{{baseURL}}"
 					],
-					"port": "3000",
 					"path": [
 						"category",
 						"642d21e21e4a4ddb1610222a"
@@ -1091,11 +1125,10 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3000/category/{{categoryId}}",
+					"raw": "{{baseURL}}/category/{{categoryId}}",
 					"host": [
-						"localhost"
+						"{{baseURL}}"
 					],
-					"port": "3000",
 					"path": [
 						"category",
 						"{{categoryId}}"
@@ -1149,11 +1182,10 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3000/category/642d21e21e4a4ddb1610222a",
+					"raw": "{{baseURL}}/category/642d21e21e4a4ddb1610222a",
 					"host": [
-						"localhost"
+						"{{baseURL}}"
 					],
-					"port": "3000",
 					"path": [
 						"category",
 						"642d21e21e4a4ddb1610222a"
@@ -1202,11 +1234,10 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/category/{{categoryId}}",
+					"raw": "{{baseURL}}/category/{{categoryId}}",
 					"host": [
-						"localhost"
+						"{{baseURL}}"
 					],
-					"port": "3000",
 					"path": [
 						"category",
 						"{{categoryId}}"
@@ -1255,11 +1286,10 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/products/{{productId}}",
+					"raw": "{{baseURL}}/products/{{productId}}",
 					"host": [
-						"localhost"
+						"{{baseURL}}"
 					],
-					"port": "3000",
 					"path": [
 						"products",
 						"{{productId}}"
