@@ -29,9 +29,14 @@ app.use(express.static("public"));
 
 // Routers
 app.use("/", homeRouter);
-app.use("/users", userRouter);
-app.use("/products", productRouter);
-app.use("/category", categoryRouter);
+app.use("/api/v1/users", userRouter);
+app.use("/api/v1/products", productRouter);
+app.use("/api/v1/category", categoryRouter);
+
+// API Health
+app.use("/api/v1/health", (req, res) => {
+  res.status(200).send("OK. API up and running.");
+});
 
 // Api-docs swagger middleware
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(openApiDocument));
