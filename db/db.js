@@ -4,7 +4,7 @@ const User = require("../models/userModel");
 
 const connect = async () => {
   try {
-    console.log("MongoDB is up and running");
+    console.log("MongoDB is up and running", process.env.MONGO_DB);
     await mongoose.connect(process.env.MONGO, {
       dbName: process.env.MONGO_DB,
     });

@@ -9,3 +9,4 @@ docker*.yml
 README.md
 .env
 Makefile
+mongodbData/*
