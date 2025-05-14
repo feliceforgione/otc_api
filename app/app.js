@@ -13,6 +13,7 @@ const userRouter = require("../router/userRouter");
 const productRouter = require("../router/productRouter");
 const categoryRouter = require("../router/categoryRouter");
 const homeRouter = require("../router/homeRouter");
+const aiRouter = require("../router/aiRouter");
 
 // Middleware
 // contract for incoming json payloads only
@@ -20,7 +21,7 @@ app.use(express.json());
 // url encoding
 app.use(express.urlencoded({ extended: true }));
 // cors policy
-app.use(cors());
+app.use(cors({ origin: "*" }));
 
 // template engine
 app.set("views", "views"); // specify the views directory
@@ -32,6 +33,7 @@ app.use("/", homeRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/products", productRouter);
 app.use("/api/v1/category", categoryRouter);
+app.use("/api/v1/ai", aiRouter);
 
 // API Health
 app.use("/api/v1/health", (req, res) => {
