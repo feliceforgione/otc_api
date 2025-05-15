@@ -1,22 +1,24 @@
 services:
   mongo:
     image: mongo:6.0.5
+    container_name: mongo
+    restart: always
     ports:
       - "27018:27017"
     env_file:
       - ./.env
     volumes:
-      - ./mongodbData:/data/db
-    container_name: mongo
-    restart: always
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME={MONGO_INITDB_ROOT_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD={MONGO_INITDB_ROOT_PASSWORD}
+      - mongo-data:/data/db
 
   express-api:
     build:
       context: .
+    container_name: otc-express-api
     ports:
       - "${PORT}:${PORT}"
     env_file:
       - ./.env
+
+volumes:
+  mongo-data:
+    name: mongo-data
