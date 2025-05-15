@@ -8,7 +8,7 @@ services:
     env_file:
       - ./.env
     environment:
-      - $SERVICE_FDQN_EXPRESS-API_3000
+      - SERVICE_FDQN_EXPRESS-API_3000
 
   mongo:
     image: mongo:6.0.5
@@ -29,7 +29,7 @@ services:
     ports:
       - 8081:3000
     environment:
-      - $SERVICE_FDQN_MONGO-EXPRESS_8081
+      - SERVICE_FDQN_MONGO-EXPRESS_8081
 
 volumes:
   mongo-data:
