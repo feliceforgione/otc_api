@@ -1,4 +1,13 @@
 services:
+  express-api:
+    build:
+      context: .
+    container_name: otc-express-api
+    ports:
+      - "${PORT}:${PORT}"
+    env_file:
+      - ./.env
+
   mongo:
     image: mongo:6.0.5
     container_name: mongo
@@ -10,14 +19,13 @@ services:
     volumes:
       - mongo-data:/data/db
 
-  express-api:
-    build:
-      context: .
-    container_name: otc-express-api
-    ports:
-      - "${PORT}:${PORT}"
+  mongo-express:
+    image: mongo-express
+    restart: always
     env_file:
       - ./.env
+    ports:
+      - 8081:3000
 
 volumes:
   mongo-data:
