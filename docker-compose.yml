@@ -8,7 +8,8 @@ services:
     env_file:
       - ./.env
     labels:
-      - "traefik.http.routers.web.rule=Host(`otc-api.forgeai.dev`)"
+      - "traefik.http.routers.express-api.rule=Host(`otc-api.forgeai.dev`)"
+      - "traefik.http.services.express-api.loadbalancer.server.port=${PORT}"
 
   mongo:
     image: mongo:6.0.5
@@ -29,7 +30,8 @@ services:
     ports:
       - 8081:3000
     labels:
-      - "traefik.http.routers.web.rule=Host(`otc-api-express.forgeai.dev`)"
+      - "traefik.http.routers.mongo-express.rule=Host(`otc-api-express.forgeai.dev`)"
+      - "traefik.http.services.mongo-express.loadbalancer.server.port=3000"
 
 volumes:
   mongo-data:
