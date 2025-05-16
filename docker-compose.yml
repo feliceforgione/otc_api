@@ -22,6 +22,7 @@ services:
   mongoexpress:
     build:
       context: ./mongoexpress
+    container_name: mongoexpress
     restart: always
     env_file:
       - ./.env
@@ -30,6 +31,20 @@ services:
     environment:
       - SERVICE_FQDN_MONGOEXPRESS
       - PORT=8081
+
+  mcp-server:
+    build:
+      context: https://github.com/feliceforgione/mcp_server_streamable.git
+      dockerfile: Dockerfile
+      args:
+        PORT: ${MCP_SERVER_PORT}
+    container_name: mcp-server
+    ports:
+      - "${MCP_SERVER_PORT}:${MCP_SERVER_PORT}"
+    environment:
+      - PORT=${MCP_SERVER_PORT}
+      - SERVER_IP=${MCP_SERVER_IP}
+      - API_SERVER_TOOLS=${MCP_API_SERVER_TOOLS}
 
 volumes:
   mongo-data:
