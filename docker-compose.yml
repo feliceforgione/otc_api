@@ -29,7 +29,6 @@ services:
     ports:
       - 8081:8081
     environment:
-      - SERVICE_FQDN_MONGOEXPRESS
       - PORT=8081
 
   mcp-server:
