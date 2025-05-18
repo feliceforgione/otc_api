@@ -38,12 +38,20 @@ services:
       args:
         PORT: ${MCP_SERVER_PORT}
     container_name: mcp-server
+    restart: always
     ports:
       - "${MCP_SERVER_PORT}:${MCP_SERVER_PORT}"
     environment:
       - PORT=${MCP_SERVER_PORT}
       - SERVER_IP=${MCP_SERVER_IP}
       - API_SERVER_TOOLS=${MCP_API_SERVER_TOOLS}
+
+  frontend:
+    build:
+      context: https://github.com/feliceforgione/medicineCabinet.git
+      dockerfile: Dockerfile
+    container_name: medicine-cabinet-frontend
+    restart: always
 
 volumes:
   mongo-data:
