@@ -52,6 +52,8 @@ services:
       dockerfile: Dockerfile
     container_name: medicine-cabinet-frontend
     restart: always
+    environment:
+      - VITE_API_URL=${VITE_API_URL}
 
 volumes:
   mongo-data:
