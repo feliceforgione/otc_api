@@ -31,7 +31,7 @@ services:
     environment:
       - PORT=8081
 
-  mcp-server:
+  mcpserver:
     build:
       context: https://github.com/feliceforgione/mcp_server_streamable.git
       dockerfile: Dockerfile

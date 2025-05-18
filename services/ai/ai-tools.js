@@ -1,6 +1,9 @@
 const { experimental_createMCPClient, tool } = require("ai");
 const { z } = require("zod");
 const { getProducts } = require("../productService.js");
+const {
+  StreamableHTTPClientTransport,
+} = require("@modelcontextprotocol/sdk/client/streamableHttp.js");
 
 const fetchProducts = tool({
   description: "Get all products from the database",
@@ -30,27 +33,36 @@ const recommendProduct = tool({
 let mcpClient;
 let tools;
 
+const transport = new StreamableHTTPClientTransport(
+  new URL(process.env.MCP_SERVER_URL)
+);
+
 async function createMcpClient() {
   mcpClient = await experimental_createMCPClient({
-    transport: {
-      type: "sse",
-      url: "http://localhost:3010/sse",
-    },
+    transport,
     name: "OTC products service",
   });
   return mcpClient;
 }
 
 async function getTools() {
-  if (!mcpClient || !tools) {
-    mcpClient = await createMcpClient();
-    tools = await mcpClient.tools();
+  try {
+    if (!mcpClient || !tools) {
+      try {
+        mcpClient = await createMcpClient();
+        tools = await mcpClient.tools();
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    return {
+      ...tools,
+      recommendProduct,
+      fetchProducts,
+    };
+  } catch (err) {
+    console.log(err);
   }
-  return {
-    ...tools,
-    recommendProduct,
-    fetchProducts,
-  };
 }
 
 module.exports = getTools;
