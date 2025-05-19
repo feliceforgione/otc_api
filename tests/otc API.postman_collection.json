@@ -826,6 +826,55 @@
 			"response": []
 		},
 		{
+			"name": "AI POST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"packages": {},
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"messages\": [\r\n    {\r\n      \"role\": \"user\",\r\n      \"content\": \"What is the capital of France?\" \r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/ai/",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"ai",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Category POST - BAD",
 			"event": [
 				{

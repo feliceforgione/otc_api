@@ -17,6 +17,10 @@
     {
       "description": "Local Server",
       "url": "http://localhost:3000/api/v1"
+    },
+    {
+      "description": "Hosted Server",
+      "url": "https://otc-api.forgeai.dev/api/v1"
     }
   ],
   "tags": [
@@ -35,6 +39,10 @@
     {
       "name": "users",
       "description": "Registration operations"
+    },
+    {
+      "name": "ai",
+      "description": "AI related operations"
     }
   ],
 
@@ -1115,6 +1123,22 @@
           }
         }
       }
+    },
+    "/ai": {
+      "post": {
+        "tags": ["ai"],
+        "summary": "Chat with AI",
+        "description": "Interface chatbot uses",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AI"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1265,6 +1289,27 @@
           "slug": {
             "type": "string",
             "example": "cold-slug"
+          }
+        }
+      },
+      "AI": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "role": {
+                  "type": "string",
+                  "example": "user"
+                },
+                "content": {
+                  "type": "string",
+                  "example": "Recommend a product for the flu"
+                }
+              }
+            }
           }
         }
       }
