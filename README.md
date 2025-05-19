@@ -19,6 +19,8 @@
 
 API to provide information about over the counter medications.
 
+[Live Site](https://otc-api.forgeai.dev/)
+
 |                                                             |                                                                               |
 | ----------------------------------------------------------- | ----------------------------------------------------------------------------- |
 | <img src="./public/otc_api_homeScreenshot.png" alt="Home" > | <img src="./public/otc_api_documentationScreenshot.png" alt="Documentation" > |
@@ -32,6 +34,9 @@ API to provide information about over the counter medications.
 | [MongoDB](https://www.mongodb.com/)     | [Swagger](https://swagger.io/)       |
 | [Jenkins](https://www.jenkins.io/)      | [Docker](https://www.docker.com/)    |
 | [Tailwindcss](https://tailwindcss.com/) | [Jest](https://jestjs.io/)           |
+| [AI SDK](https://ai-sdk.dev/)           |                                      |
+
+<br>
 
 <br>
 
